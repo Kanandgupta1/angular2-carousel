@@ -5,11 +5,15 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {Slider} from './slider';
+import {contentSlider,printSlide,slideAjaxDiv} from './component/index';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Slider
+    Slider,
+    contentSlider,
+    printSlide,
+    slideAjaxDiv
   ],
   imports: [
     BrowserModule,
