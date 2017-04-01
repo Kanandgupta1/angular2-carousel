@@ -1,5 +1,5 @@
 <div class="slider-container">
   <div class="slider-inner" style="width: 100%; height: 400px">
-    <div class="item" style="">Item 1</div>
+    <div class="item" [class.newItem]="true" (click)="sliderPlay($event,'item')">Item 1</div>
   </div>
 </div>
