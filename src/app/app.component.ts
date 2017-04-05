@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!';
-
+  /**
+  * Slider data
+  */
   slide=[{'sType':'img','imgSrc':'src/assets/img/carousel/1.jpg'},
     {'sType':'img','imgSrc':'src/assets/img/carousel/2.jpg'},
     {'sType':'img','imgSrc':'src/assets/img/carousel/3.jpg'},

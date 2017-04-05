@@ -4,15 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {Slider} from './slider';
-import {contentSlider,printSlide,slideAjaxDiv} from './component/index';
+import {ngIamgeSlider,createSlides,slideAjaxDiv} from './component/slider.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Slider,
-    contentSlider,
-    printSlide,
+    ngIamgeSlider,
+    createSlides,
     slideAjaxDiv
   ],
   imports: [
