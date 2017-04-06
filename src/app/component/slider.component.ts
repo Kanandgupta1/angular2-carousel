@@ -38,7 +38,7 @@ export class ngIamgeSlider {
       setTimeout(() => {
         this.slides[this.currentElement].classes.push('zoomIn')
         setTimeout(() => {
-          this.slides[this.currentElement].classes.push('blur')
+          // this.slides[this.currentElement].classes.push('blur')
         },5000)
       }, 2500)
     }
@@ -85,7 +85,7 @@ export class ngIamgeSlider {
     this.slideZoomTime=setTimeout(() => {
       this.slides[this.currentElement].classes.push('zoomIn')
       setTimeout(() => {
-        this.slides[this.currentElement].classes.push('blur')
+        // this.slides[this.currentElement].classes.push('blur')
       },5000)
     }, 2500)
     if (this.autoPlay) this.auto(this.intervalTime);
@@ -125,7 +125,7 @@ export class ngIamgeSlider {
     this.slideZoomTime=setTimeout(() => {
       this.slides[this.currentElement].classes.push('zoomIn')
       setTimeout(() => {
-        this.slides[this.currentElement].classes.push('blur')
+        // this.slides[this.currentElement].classes.push('blur')
       },5000)
     }, 2500)
     // this.slideZoomTime = setInterval(() => {
