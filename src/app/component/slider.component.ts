@@ -8,7 +8,7 @@ import {Component, ElementRef, Renderer, Input, Output, Optional, EventEmitter, 
     <a (click)="backWard()"><img src="../../assets/img/carousel/arrows_bullets/white-back.png"/> </a>
     <a (click)="forWard()"><img src="../../assets/img/carousel/arrows_bullets/white-forward.png"/> </a>
   </div>
-  <ul class="slide-show">
+  <ul class="slide-show" [ngStyle]="sliderBackground" [ngClass]="li?.classes">
     <li *ngFor="let li of slides" [ngStyle]="{'display':li?.hidden?'none':''}" [ngClass]="li?.classes">
       <create-slide [tag]="li"></create-slide>
     </li>
@@ -39,7 +39,7 @@ export class ngIamgeSlider {
         this.slides[this.currentElement].classes.push('zoomIn')
         setTimeout(() => {
           // this.slides[this.currentElement].classes.push('blur')
-        },5000)
+        }, 5000)
       }, 2500)
     }
   }
@@ -59,6 +59,7 @@ export class ngIamgeSlider {
   slideZoomTime: any;
   transValue: number = 0;
   delayHideTime: number = this.intervalTime;
+  sliderBackground: any;
 
   constructor() {
     this.auto(this.interval)
@@ -82,11 +83,15 @@ export class ngIamgeSlider {
 
     this.delayHideSetTimeOutControl = this.delayHide(this.slides[prev], this.delayHideTime);
     this.slides[this.currentElement].classes = ["active", "backward"];
-    this.slideZoomTime=setTimeout(() => {
+    this.sliderBackground = {
+      'background-image': 'url(' + this.slides[this.currentElement].imgSrc + ')'
+    }
+    this.slideZoomTime = setTimeout(() => {
       this.slides[this.currentElement].classes.push('zoomIn')
+      // this.sliderBackground['background-size']='200%';
       setTimeout(() => {
-        // this.slides[this.currentElement].classes.push('blur')
-      },5000)
+        this.slides[this.currentElement].classes.push('fade')
+      }, 5000)
     }, 2500)
     if (this.autoPlay) this.auto(this.intervalTime);
   }
@@ -122,11 +127,16 @@ export class ngIamgeSlider {
     clearTimeout(this.delayHideSetTimeOutControl);
     this.delayHideSetTimeOutControl = this.delayHide(this.slides[prev], this.delayHideTime);
     this.slides[this.currentElement].classes = ["active", "forward"];
-    this.slideZoomTime=setTimeout(() => {
+    this.sliderBackground = {
+      'background-image': 'url(' + this.slides[this.currentElement].imgSrc + ')'
+    }
+    this.slideZoomTime = setTimeout(() => {
       this.slides[this.currentElement].classes.push('zoomIn')
+      // this.sliderBackground['background-size']='200%';
+
       setTimeout(() => {
-        // this.slides[this.currentElement].classes.push('blur')
-      },5000)
+        this.slides[this.currentElement].classes.push('fade')
+      }, 5000)
     }, 2500)
     // this.slideZoomTime = setInterval(() => {
     //   this.slides[this.currentElement].transform = {'transform':'scale(1.' + this.transValue + ')'};
