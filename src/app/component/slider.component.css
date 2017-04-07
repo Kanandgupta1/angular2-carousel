@@ -32,11 +32,17 @@
 }
 .slide-show.zoomIn{
   transition: background-image 1.2s;
-  animation: bgScale 15s;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  animation-name: bgScale;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
 }
 @keyframes bgScale {
-  0%{background-size:100%}
-  100%{background-size:200%}
+  0%{background-size:100%;
+  transition: background-size 0.7s}
+  100%{background-size:150%}
 }
 .slider ul li create-slide,.slider ul li create-slide img{
     max-width:100%;
@@ -56,6 +62,7 @@
   margin:0;
   padding: 0;
   text-align: center;
+  z-index: 102;
 }
 .slider .navgater li{
   display: inline-block;
@@ -63,6 +70,10 @@
   width: 20px;
   height:20px;
   /*margin-right: 2px;*/
+  -webkit-transition: background-image 0.7s ease-in-out;
+  -moz-transition: background-image 0.7s ease-in-out;
+  -o-transition: background-image 0.7s ease-in-out;
+  transition: background-image 0.7s ease-in-out;;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 14px;
@@ -245,6 +256,6 @@
   filter: blur(1px);
 }
 .slider ul li.active.fade img{
-  opacity: 0;
+  opacity: 0.8;
 }
 /*-----Carousel Slider End------*/

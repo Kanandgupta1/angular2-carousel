@@ -8,13 +8,13 @@ import {Component, ElementRef, Renderer, Input, Output, Optional, EventEmitter, 
     <a (click)="backWard()"><img src="../../assets/img/carousel/arrows_bullets/white-back.png"/> </a>
     <a (click)="forWard()"><img src="../../assets/img/carousel/arrows_bullets/white-forward.png"/> </a>
   </div>
-  <ul class="slide-show" [ngStyle]="sliderBackground" [ngClass]="li?.classes">
+  <ul class="slide-show" [ngStyle]="sliderBackground?.style" [ngClass]="sliderBackground?.classes">
     <li *ngFor="let li of slides" [ngStyle]="{'display':li?.hidden?'none':''}" [ngClass]="li?.classes">
       <create-slide [tag]="li"></create-slide>
     </li>
   </ul>
   <ol class="navgater">
-    <li *ngFor="let bullet of slides" [ngClass]="bullet?.classes">
+    <li *ngFor="let bullet of slides; let i = index;" [ngClass]="bullet?.classes" (click)="forWard(i)">
     </li>
   </ol>
 </div>
@@ -59,7 +59,7 @@ export class ngIamgeSlider {
   slideZoomTime: any;
   transValue: number = 0;
   delayHideTime: number = this.intervalTime;
-  sliderBackground: any;
+  sliderBackground: any={};
 
   constructor() {
     this.auto(this.interval)
@@ -73,6 +73,7 @@ export class ngIamgeSlider {
     if (this.currentElement < 0) {
       this.currentElement = this.number - 1;
     }
+    // this.sliderBackground={};
     this.removeClasses();
     var prev = this.currentElement == this.number - 1 ? 0 : this.currentElement + 1;
     this.slides[prev].classes = ["animateForward"];
@@ -83,11 +84,12 @@ export class ngIamgeSlider {
 
     this.delayHideSetTimeOutControl = this.delayHide(this.slides[prev], this.delayHideTime);
     this.slides[this.currentElement].classes = ["active", "backward"];
-    this.sliderBackground = {
+    this.sliderBackground['style'] = {
       'background-image': 'url(' + this.slides[this.currentElement].imgSrc + ')'
     }
     this.slideZoomTime = setTimeout(() => {
       this.slides[this.currentElement].classes.push('zoomIn')
+      this.sliderBackground['classes']=['zoomIn'];
       // this.sliderBackground['background-size']='200%';
       setTimeout(() => {
         this.slides[this.currentElement].classes.push('fade')
@@ -102,40 +104,41 @@ export class ngIamgeSlider {
     }
   }
 
-  forWard() {
+  forWard(a) {
     console.log("forward called")
     clearTimeout(this.slideZoomTime)
     if (this.autoPlay) clearInterval(this.interval);
-    this._forWard();
+    this._forWard(a);
     if (this.autoPlay) this.auto(this.intervalTime);
   }
 
-  private _forWard() {
+  private _forWard(a) {
     this.transValue = 1;
     this.currentElement = 1 + this.currentElement;
     if (this.currentElement >= this.number) {
       this.currentElement = 0;
     }
+    // this.sliderBackground={};
     this.removeClasses();
     var prev = this.currentElement == 0 ? this.number - 1 : this.currentElement - 1;
     console.log(this.slides[prev]);
     this.slides[prev]["classes"] = ["animateBack"];
 
     this.show(this.slides[prev]);
-    this.show(this.slides[this.currentElement]);
+    this.show(this.slides[a?a:this.currentElement]);
 
     clearTimeout(this.delayHideSetTimeOutControl);
     this.delayHideSetTimeOutControl = this.delayHide(this.slides[prev], this.delayHideTime);
-    this.slides[this.currentElement].classes = ["active", "forward"];
-    this.sliderBackground = {
-      'background-image': 'url(' + this.slides[this.currentElement].imgSrc + ')'
+    this.slides[a?a:this.currentElement].classes = ["active", "forward"];
+    this.sliderBackground['style'] = {
+      'background-image': 'url(' + this.slides[a?a:this.currentElement].imgSrc + ')'
     }
     this.slideZoomTime = setTimeout(() => {
-      this.slides[this.currentElement].classes.push('zoomIn')
+      this.slides[a?a:this.currentElement].classes.push('zoomIn')
+      this.sliderBackground['classes']=['zoomIn'];
       // this.sliderBackground['background-size']='200%';
-
       setTimeout(() => {
-        this.slides[this.currentElement].classes.push('fade')
+        this.slides[a?a:this.currentElement].classes.push('fade')
       }, 5000)
     }, 2500)
     // this.slideZoomTime = setInterval(() => {
